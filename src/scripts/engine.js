@@ -24,7 +24,9 @@ function startGame() {
   document.querySelector(".panel").style.display = "flex";
 
   function randomSquare() {
-    state.view.squares.forEach((square) => square.classList.remove("enemy"));
+    state.view.squares.forEach((square) => {
+      square.classList.remove("enemy");
+    });
 
     let randomNumber = Math.floor(Math.random() * 9);
     let randomSquare = state.view.squares[randomNumber];
@@ -59,6 +61,7 @@ function startGame() {
           state.view.score.innerText = state.values.scoreCurrentValue;
           state.values.enemyCurrentValue = null;
           playAudio();
+          addRetroClickEffect();
         } else {
           state.values.livesLeft--;
           state.view.livesLeft.innerText = state.values.livesLeft;
@@ -82,6 +85,26 @@ function startGame() {
         alert("Game Over");
       }
     }, 1000);
+  }
+
+  function addRetroClickEffect() {
+    const effect = document.createElement("span");
+    effect.classList.add("click-effect");
+    effect.textContent = "+1";
+
+    effect.style.left = `${event.pageX}px`;
+    effect.style.top = `${event.pageY}px`;
+
+    document.body.appendChild(effect);
+
+    requestAnimationFrame(() => {
+      effect.style.transform = "translateY(-25px)"; 
+      effect.style.opacity = "0";
+    });
+
+    setTimeout(() => {
+      effect.remove();
+    }, 1000); 
   }
 
   function initialize() {
