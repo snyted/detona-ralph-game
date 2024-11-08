@@ -7,21 +7,21 @@ const state = {
     timeLeft: document.querySelector("#time-left"),
     score: document.querySelector("#score"),
     livesLeft: document.querySelector("#lives"),
+    panel: document.querySelector(".panel"),
   },
   values: {
-    gameVelocity: 500,
+    gameVelocity: 1000,
     enemyCurrentValue: 1,
     scoreCurrentValue: 0,
     currentTime: 60,
     gameActive: true,
     livesLeft: 3,
   },
-  timerID: null,
 };
 
 function startGame() {
-  document.getElementById("start").style.display = "none";
-  state.values.gameActive = true;
+  document.querySelector(".menu").style.display = "none";
+  document.querySelector(".panel").style.display = "flex";
 
   function randomSquare() {
     state.view.squares.forEach((square) => square.classList.remove("enemy"));
@@ -64,24 +64,25 @@ function startGame() {
           state.view.livesLeft.innerText = state.values.livesLeft;
 
           if (state.values.livesLeft === 0) {
-            endGame();
+            state.values.gameActive = false;
+            alert("Game Over");
           }
         }
       });
     });
   }
 
-function decreasingTime() {
-  const timerID = setInterval(() => {
-    state.values.currentTime--;
-    state.view.timeLeft.innerText = state.values.currentTime;
-    if (state.values.currentTime <= 0) {
-      clearInterval(timerID);
-      state.values.gameActive = false;
-      alert("Game Over");
-    }
-  }, 1000);
-}
+  function decreasingTime() {
+    const timerID = setInterval(() => {
+      state.values.currentTime--;
+      state.view.timeLeft.innerText = state.values.currentTime;
+      if (state.values.currentTime <= 0) {
+        clearInterval(timerID);
+        state.values.gameActive = false;
+        alert("Game Over");
+      }
+    }, 1000);
+  }
 
   function initialize() {
     addListenerHitbox();
@@ -90,26 +91,4 @@ function decreasingTime() {
   }
 
   initialize();
-}
-
-function resetGame() {
-  // Restaurar os valores iniciais
-  state.values.gameVelocity = 500;
-  state.values.enemyCurrentValue = 1;
-  state.values.scoreCurrentValue = 0;
-  state.values.currentTime = 60;
-  state.values.livesLeft = 3;
-  state.values.gameActive = false;
-
-  // Atualizar a interface do jogo com os valores resetados
-  state.view.score.innerText = state.values.scoreCurrentValue;
-  state.view.timeLeft.innerText = state.values.currentTime;
-  state.view.livesLeft.innerText = state.values.livesLeft;
-
-  // Limpar a classe "enemy" de todas as células
-  state.view.squares.forEach((square) => square.classList.remove("enemy"));
-
-  // Ocultar o botão "RESET" e mostrar o botão "START"
-  document.getElementById("reset").style.display = "none";
-  document.getElementById("start").style.display = "block";
 }

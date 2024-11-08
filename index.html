@@ -11,7 +11,7 @@
 
   <body>
     <main class="container">
-      <section class="menu">
+      <section class="menu-info">
         <div class="menu-time">
           <h2 class="h2">Your Time</h2>
           <h2 id="time-left">0</h2>
@@ -26,16 +26,14 @@
         </div>
       </section>
 
-      <section class="panel">
-        <!-- Botão START no centro -->
-        <div class="start_menu">
+      <section class="menu">
+        <div class="menu-btns">
           <button onclick="startGame()" id="start">START</button>
-        </div>
-        <!-- Botão RESET no centro -->
-        <div class="start_menu">
           <button onclick="resetGame()" id="reset">reset</button>
         </div>
+      </section>
 
+      <section class="panel">
         <!-- Grid de quadrados 3x3 -->
         <div class="panel-row">
           <div class="square" id="1"></div>
