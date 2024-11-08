@@ -79,6 +79,8 @@ function decreasingTime() {
   }, 1000);
 }
 
+
+
 function initialize() {
   addListenerHitbox();
   moveEnemy();
